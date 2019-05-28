@@ -7,7 +7,6 @@
 	
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="UserInterface/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 		
