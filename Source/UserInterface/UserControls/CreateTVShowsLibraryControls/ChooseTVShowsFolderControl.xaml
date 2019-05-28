@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="PerfectCode.TVShowManager.UserInterface.UserControls.CreateTVShowsLibraryControls.ChooseTVShowsFolderControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userInterface="clr-namespace:PerfectCode.TVShowManager.UserInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1000">
+    
+    <UserControl.Resources>
+        <userInterface:ObjectReferenceToVisibilityConverter x:Key="ObjectReferenceToVisibilityConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock 
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+            Style="{StaticResource LargeText}"
+            Text="Choose the folder on disk which contains all TV shows"/>
+        
+        <TextBox
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            Margin="20,5,10,5"
+            Text="{Binding SelectedPath, UpdateSourceTrigger=PropertyChanged}"/>
+        
+        <Button 
+            Grid.Row="1" Grid.Column="2"
+            Style="{StaticResource TextOnlyButton}" 
+            Command="{Binding ChooseTVFolderCommand}" Content="..." />
+        
+        <TextBlock 
+            Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+            Style="{StaticResource InfoText}"
+            Text="The structure of the TV Shows most follow the following convention:&#x0a;{Containing folder}\{TV Show Name}\Season {nr}\{Episode name}. &#x0a;&#x0a;The episodes are recognized with the following convention: &#x0a;S{season number}E{episode number}. E.g. 'Dexter - S01E04.mkv'"/>
+
+        <GroupBox 
+            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" 
+            Visibility="{Binding SelectedPath, Converter={StaticResource ObjectReferenceToVisibilityConverter}}"
+            Header="Found TV shows">
+            <ListView ItemsSource="{Binding TVShows}"/>
+        </GroupBox>
+    </Grid>
+</UserControl>

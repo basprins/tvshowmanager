@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="PerfectCode.TVShowManager.UserInterface.UserControls.CreateTVShowsLibraryControls.FindMatchingTVShowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userInterface="clr-namespace:PerfectCode.TVShowManager.UserInterface"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <userInterface:BoolToTextConverter x:Key="BoolToTextConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="0.65*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock 
+            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+            Style="{StaticResource LargeText}" Text="{Binding TVShowFullName}"
+            HorizontalAlignment="Center" />
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource TextOnlyButton}" TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="30, 5, 5, 30"/>
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="&lt;&lt;" Command="{Binding PreviousResultsCommand}" />
+            <Button Content="&gt;&gt;" Command="{Binding NextResultsCommand}" />
+        </StackPanel>
+        
+        <ListView Grid.Row="2" Grid.Column="0" ItemsSource="{Binding Candidates}" SelectedItem="{Binding SelectedCandidate}">
+            <ListView.Resources>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} - {1}">
+                                <Binding Path="Name"/>
+                                <Binding Path="FirstAirDate"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Border 
+            Grid.Row="2" Grid.Column="2" BorderBrush="Black" BorderThickness="1"
+            DataContext="{Binding SelectedCandidate}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="0.6*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelText}" Text="Web ID:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource ValueText}" Text="{Binding WebID}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelText}" Text="First air date:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource ValueText}" Text="{Binding FirstAirDate}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelText}" Text="Average:"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource ValueText}" Text="{Binding Average, StringFormat=N2}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelText}" Text="#Votes:"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource ValueText}" Text="{Binding NumberOfVotes}"/>
+
+                    <ScrollViewer 
+                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                        
+                        Margin="10"
+                        VerticalScrollBarVisibility="Auto">
+
+                        <TextBlock Text="{Binding Overview}" TextWrapping="Wrap"/>
+                    </ScrollViewer>
+
+                </Grid>
+
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1,0,0,0" />
+                
+                <Image 
+                    Grid.Row="0" Grid.Column="2"
+                    Margin="10" 
+                    Source="{Binding Image}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

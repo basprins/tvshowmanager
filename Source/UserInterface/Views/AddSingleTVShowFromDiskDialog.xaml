@@ -1,0 +1,59 @@
+﻿<Window x:Class="PerfectCode.TVShowManager.UserInterface.Views.AddSingleTVShowFromDiskDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:createTVShowsLibraryControls="clr-namespace:PerfectCode.TVShowManager.UserInterface.UserControls.CreateTVShowsLibraryControls"
+        xmlns:userInterface="clr-namespace:PerfectCode.TVShowManager.UserInterface"
+        mc:Ignorable="d"
+        Title="AddSingleTVShowFromDiskDialog" 
+        Width="1100" Height="800" 
+        WindowStartupLocation="CenterOwner"
+        userInterface:DialogClosedBehavior.DialogResult="{Binding DialogResult}">
+    <Border Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+        
+            <TextBlock 
+                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                Style="{StaticResource LargeText}" 
+                HorizontalAlignment="Center"
+                Text="Select the TV show from disk"/>
+            
+            <TextBox 
+                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="{Binding SelectedPath, FallbackValue=D:\\Media\\TV Shows\\Dexter, UpdateSourceTrigger=PropertyChanged}"
+                Margin="40,0,10,0"/>
+            
+            <Button 
+                Grid.Row="1" Grid.Column="2" 
+                Style="{StaticResource TextOnlyButton}" Command="{Binding SelectTVShowFolderCommand}" Content="..."/>
+            
+            <TextBlock 
+                Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Style="{StaticResource InfoText}"
+                Text="Choose the folder which represents the TV Show on disk. After the folder is choosen we will look for possible matches online. Once you choose the correct match, the TV show can be added by pressing OK."/>
+
+            <createTVShowsLibraryControls:FindMatchingTVShowControl
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" />
+            
+            <Button
+                Grid.Row="5" Grid.Column="3"
+                Style="{StaticResource TextOnlyButton}"
+                Command="{Binding OKCommand}"
+                Content="OK"/>
+        </Grid>
+    </Border>
+</Window>

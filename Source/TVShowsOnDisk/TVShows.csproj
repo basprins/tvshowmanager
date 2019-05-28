@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED8145F4-C11A-462D-A51E-ACE99544CCC1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PerfectCode.TVShowsOnDisk</RootNamespace>
+    <AssemblyName>TVShowsOnDisk</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Factories\EpisodesFactory.cs" />
+    <Compile Include="Factories\SeasonsFactory.cs" />
+    <Compile Include="Factories\TVShowFactory.cs" />
+    <Compile Include="IEpisode.cs" />
+    <Compile Include="Factories\IEpisodeFactory.cs" />
+    <Compile Include="ISeason.cs" />
+    <Compile Include="Factories\ISeasonFactory.cs" />
+    <Compile Include="ITVShow.cs" />
+    <Compile Include="Factories\ITVShowFactory.cs" />
+    <Compile Include="TVShow.cs" />
+    <Compile Include="Episode.cs" />
+    <Compile Include="Season.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FileSystemIO\FileSystemIO.csproj">
+      <Project>{20169A47-C7AA-4004-A156-7C20DBCCBE90}</Project>
+      <Name>FileSystemIO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeMonitor\TimeMonitor.csproj">
+      <Project>{5f8378da-2407-4816-a89a-1048bf198751}</Project>
+      <Name>TimeMonitor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TvDbRestApi\TvDbRestApi.csproj">
+      <Project>{191FE4F7-323E-4FF6-915F-41623789C315}</Project>
+      <Name>TvDbRestApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

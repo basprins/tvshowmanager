@@ -1,0 +1,67 @@
+﻿<Window x:Class="PerfectCode.TVShowManager.UserInterface.Views.AddTVShowFromWebDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userInterface="clr-namespace:PerfectCode.TVShowManager.UserInterface"
+        xmlns:createTVShowsLibraryControls="clr-namespace:PerfectCode.TVShowManager.UserInterface.UserControls.CreateTVShowsLibraryControls"
+        xmlns:addTVShowFromWeb="clr-namespace:PerfectCode.TVShowManager.UserInterface.UserControls.AddTVShowFromWeb"
+        xmlns:userControls="clr-namespace:PerfectCode.TVShowManager.UserInterface.UserControls"
+        xmlns:addSingleTVShowFromWeb="clr-namespace:PerfectCode.TVShowManager.UserInterface.ViewModels.AddSingleTVShowFromWeb"
+        mc:Ignorable="d"
+        Title="Find your new TV Show online and add it to your library" 
+        Width="1100" Height="800"
+        WindowStartupLocation="CenterOwner"
+        userInterface:DialogClosedBehavior.DialogResult="{Binding DialogResult}" >
+    
+    <Window.Resources>
+        <userControls:TVShowSearchTypeToVisibilityConverter x:Key="SearchTypeToVisibilityConverter"/>
+        <userControls:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+    </Window.Resources>
+    <Border Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <Style BasedOn="{StaticResource ToggleButtonLikeRadioButton}" TargetType="{x:Type RadioButton}">
+                        <Setter Property="Margin" Value="10,5,0,5"/>
+                        <Setter Property="Width" Value="80"/>
+                        <Setter Property="Height" Value="50"/>
+                    </Style>
+                </StackPanel.Resources>
+                <RadioButton 
+                    GroupName="SearchGroup" Content="By name" 
+                    IsChecked="{Binding SearchType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static addSingleTVShowFromWeb:TVShowSearchType.SearchByName}}"/>
+                <RadioButton 
+                    GroupName="SearchGroup" Content="Discover"
+                    IsChecked="{Binding SearchType, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static addSingleTVShowFromWeb:TVShowSearchType.Discover}}"/>
+            </StackPanel>
+            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                <addTVShowFromWeb:SearchByNameControl 
+                    Visibility="{Binding SearchType, Converter={StaticResource SearchTypeToVisibilityConverter}, FallbackValue=Visible, ConverterParameter={x:Static addSingleTVShowFromWeb:TVShowSearchType.SearchByName}}"/>
+
+                <addTVShowFromWeb:DiscoverTVShowsControl
+                    Visibility="{Binding SearchType, Converter={StaticResource SearchTypeToVisibilityConverter}, FallbackValue=Collapsed, ConverterParameter={x:Static addSingleTVShowFromWeb:TVShowSearchType.Discover}}"/>
+            </Grid>
+
+            <!-- Divider line -->
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Gray" BorderThickness="0,3,0,0"/>
+
+            <createTVShowsLibraryControls:FindMatchingTVShowControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" />
+
+            <Button Grid.Row="4" Grid.Column="2" Style="{StaticResource TextOnlyButton}" Content="Finsh" Command="{Binding FinishCommand}"/>
+        </Grid>
+    </Border>
+</Window>

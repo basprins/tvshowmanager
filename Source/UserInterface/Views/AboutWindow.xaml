@@ -1,0 +1,63 @@
+﻿<Window x:Class="PerfectCode.TVShowManager.UserInterface.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:userInterface="clr-namespace:PerfectCode.TVShowManager.UserInterface"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Title="About..." 
+        Height="300" Width="900"
+        userInterface:DialogClosedBehavior.DialogResult="{Binding DialogResult}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="0.6*"/>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock 
+            Grid.ColumnSpan="3"
+            Style="{StaticResource LargeText}" HorizontalAlignment="Center" 
+            Text="TV Show Manager"/>
+        
+        <TextBlock
+            Grid.Row="1" Grid.Column="0"
+            Style="{StaticResource LabelText}" Text="Version: "/>
+        
+        <TextBlock
+            Grid.Row="1" Grid.Column="2"
+            Style="{StaticResource ValueText}" Text="{Binding Version}"/>
+        
+        <TextBlock 
+            Grid.Row="2"
+            Grid.Column="0"
+            Style="{StaticResource LabelText}" Text="Website:"/>
+        
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Style="{StaticResource HyperLink}" Content="{Binding Homepage, FallbackValue=http://sourceforge.com}"
+            Command="{Binding ShowHomepageCommand}"/>
+        
+        <StackPanel 
+            Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+            FlowDirection="RightToLeft"
+            Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource TextOnlyButton}" TargetType="Button">
+                    <Setter Property="Margin" Value="10"/>
+                </Style>
+            </StackPanel.Resources>
+            
+            <Button Content="Close" Command="{Binding CloseCommand}"></Button>
+        </StackPanel>
+    </Grid>
+</Window>

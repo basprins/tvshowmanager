@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="PerfectCode.TVShowManager.UserInterface.UserControls.EpisodeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignWidth="600" d:DesignHeight="100" >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Border BorderBrush="Black" BorderThickness="3" CornerRadius="10" Padding="10">
+        <Grid>
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="{Binding OpenInExplorerCommand}" Header="Open in Explorer"/>
+                    <MenuItem Command="{Binding MarkAsWatchedCommand}" Header="Mark as watched (create empty subs)"/>
+                    <MenuItem Command="{Binding MarkAsUnwatchedCommand}" Header="Mark as unwatched"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Style="{StaticResource LargeText}"
+                Grid.Row="0" Grid.Column="0">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}E{0:00} - {1}" FallbackValue="E01 - Moar blooood">
+                        <Binding Path="Number"/>
+                        <Binding Path="Name"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+        
+            <TextBlock Style="{StaticResource SmallText}"
+                Grid.Row="1" Grid.Column="0"
+                Text="{Binding AirDate, StringFormat={}Release date: {0:dd/MM/yyyy}, FallbackValue=2014-04-20}"/>
+
+            <StackPanel Orientation="Horizontal"
+                Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+                
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Image}">
+                        <Setter Property="Margin" Value="10,0,0,0"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Image 
+                    Width="50" Source="../Icons/download.png" 
+                    Visibility="{Binding CanDownload, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="Episode is available for download"/>
+                <Image 
+                    Width="50" Source="../Icons/coming-soon.png" 
+                    Visibility="{Binding ComingSoon, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="Episode is coming out soon!"/>
+                <Image 
+                    Width="50" Source="../Icons/unwatched.png" 
+                    Visibility="{Binding IsNew, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    ToolTip="Episode has not been watched yet"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="PerfectCode.TVShowManager.UserInterface.UserControls.AddTVShowFromWeb.DiscoverTVShowsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignWidth="1300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/> <!-- Type -->
+            <ColumnDefinition Width="Auto"/> 
+            <ColumnDefinition Width="Auto"/> <!-- Minimum date -->
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/> <!-- Maximum date -->
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/> <!-- Discover button -->
+        </Grid.ColumnDefinitions>
+            
+        <TextBlock Grid.Column="0" Style="{StaticResource LabelText}" Text="Discover type: "/>
+        <ComboBox Grid.Column="1">
+            <ComboBox.Items>
+                <ComboBoxItem Content="Episode Air Date"/>
+                <ComboBoxItem Content="TV Show Air Date"/>
+            </ComboBox.Items>
+        </ComboBox>
+
+        <TextBlock Grid.Column="2" Style="{StaticResource LabelText}" Text="Minimum release date: "/>
+        <TextBlock Grid.Column="3" Style="{StaticResource ValueText}" Text="2015-02-04"/>
+
+        <TextBlock Grid.Column="4" Style="{StaticResource LabelText}" Text="Maximum release date: "/>
+        <TextBlock Grid.Column="5" Style="{StaticResource ValueText}" Text="2015-02-04"/>
+
+        <Button Grid.Column="7" Style="{StaticResource TextOnlyButton}" Content="Discover" Command="{Binding DiscoverTVShowsCommand}" />
+    </Grid>
+</UserControl>
